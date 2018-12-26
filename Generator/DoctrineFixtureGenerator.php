@@ -74,7 +74,8 @@ class DoctrineFixtureGenerator extends Generator
         $fixtureFileName = $this->getFixtureFileName($entity, $name, $ids);
         $entityClass = $this->getFqcnEntityClass($entity, 'App', $isFqcnEntity);
 
-        $fixturePath = $bundle . '/DataFixtures/ORM/Load' . $entity . 'Data.php';
+        $entity = str_replace('\\', '', $entity);
+        $fixturePath = $bundle . '/DataFixtures/ORM/Load' . $entity . '.php';
         $bundleNameSpace = $bundle;
         if ($overwrite === false && file_exists($fixturePath)) {
             throw new \RuntimeException(sprintf('Fixture "%s" already exists.', $fixtureFileName));
@@ -99,11 +100,11 @@ class DoctrineFixtureGenerator extends Generator
         if (empty($ids)) {
             $items = $repo->findAll();
             $items = array_filter($items, function($item) use ($entityClass){
-               if (get_class($item) === $entityClass){
-                   return true;
-               } else{
-                   return false;
-               }
+                if (get_class($item) === $entityClass){
+                    return true;
+                } else{
+                    return false;
+                }
             });
         } else {
             $items = $repo->{$this->getFindByIdentifier($class)}($ids);

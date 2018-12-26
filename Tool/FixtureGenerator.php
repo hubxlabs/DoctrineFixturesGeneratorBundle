@@ -721,6 +721,9 @@ use Doctrine\ORM\Mapping\ClassMetadata;
      */
     private function getConstructorParams($item, \ReflectionClass $reflexion): array
     {
+        if (!$reflexion->getConstructor()) {
+            return [];
+        }
         $constructorParams = [];
         foreach ($reflexion->getConstructor()->getParameters() as $parameter) {
             if ($parameter->isDefaultValueAvailable()) {

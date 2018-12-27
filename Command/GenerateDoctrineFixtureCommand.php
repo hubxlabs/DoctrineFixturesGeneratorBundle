@@ -633,7 +633,7 @@ EOT
                     'The Entity shortcut name'.($input->getOption('entity') != "" ?
                         " (".$input->getOption('entity').")" : "").' : ', $input->getOption('entity')
                 );
-                $question->setValidator(['Sensio\Bundle\GeneratorBundle\Command\Validators', 'validateEntityName']);
+                //$question->setValidator(['Sensio\Bundle\GeneratorBundle\Command\Validators', 'validateEntityName']);
                 $question->setMaxAttempts(5);
                 $question->setAutocompleterValues($bundleNames);
                 $entity = $helper->ask($input, $output, $question);
